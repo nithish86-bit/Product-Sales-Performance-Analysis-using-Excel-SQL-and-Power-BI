@@ -1,58 +1,61 @@
-create procedure t4 as 
-begin
-select * from product_details
-select * from Product_Hierarchy
-select * from product_pricing
-select * from Product_Sales
-end
+-- ====================================================================
+-- TASK 2: SQL ANALYTICAL QUERIES - SOLUTIONS
+-- ====================================================================
 
-/*1. Calculate the total revenue for each product category. (7 Marks)
-Hint:
---Multiply price by qty and group by category_name.*/
-select d.category_name,sum(cast(s.price as int)* cast(s.qty as int)) as tot_revenue
-from product_details as d join product_sales as s
-on d.product_id=s.prod_id
-group by category_name
+-- 1. Total revenue for each product category
+SELECT 
+    category_name,
+    ROUND(SUM(price * qty), 2) AS total_revenue
+FROM product_sales
+GROUP BY category_name
+ORDER BY total_revenue DESC;
 
 
-/*2. Identify the product with the highest discount percentage. (7 Marks)
-Hint:
---Compute discount percentage using ((Original Price - Discounted Price) / Original Price) * 100,
---order by discount_percentage DESC LIMIT 1.*/
-t4
-select top 1 d.product_name,s.discount as discount_percent
-from Product_Details as d join Product_Sales as s
-on d.product_id=s.prod_id
-order by discount_percent desc
+-- 2. Product with the highest discount percentage
+SELECT 
+    product_name,
+    original_price,
+    discounted_price,
+    ROUND(((original_price - discounted_price) / original_price) * 100, 2) AS discount_percentage
+FROM product_pricing
+WHERE original_price > 0
+ORDER BY discount_percentage DESC
+LIMIT 1;
 
-/*3. Find the product category with the highest average price. (8 Marks)
-Hint:
---Use AVG(price), group by category_name, and order results in descending order.*/
-t4
 
-select category_name,avg(cast(price as float)) as avg_price
-from product_details
-group by category_name
-order by avg_price desc
+-- 3. Product category with the highest average price
+SELECT 
+    category_name,
+    ROUND(AVG(price), 2) AS average_price
+FROM product_sales
+GROUP BY category_name
+ORDER BY average_price DESC;
 
-/*4. Determine the product with the lowest price fluctuation (least difference between original and discounted price). (8 Marks)
-Hint:
---Compute price fluctuation using ABS(Original Price - Discounted Price),
---order by price_fluctuation ASC LIMIT 1.*/
 
-select top 1 d.product_name,
-(cast(s.price as int)*s.discount / 100.0)as price_fluctuation
-from product_details as d join product_sales as s 
-on d.product_id = s.prod_id
-order by price_fluctuation asc
+-- 4. Product with the lowest price fluctuation (least difference)
+SELECT 
+    product_name,
+    original_price,
+    discounted_price,
+    ABS(original_price - discounted_price) AS price_fluctuation
+FROM product_pricing
+ORDER BY price_fluctuation ASC
+LIMIT 1;
 
-/*6. Find the category with the highest total revenue contribution.
-Hint:
---Calculate revenue per category and compare to total revenue using Sub-query.*/
-t4
 
-select top 1 d.category_name,sum(cast(s.price as int) * s.qty) as category_revenue
-from product_details as d
-join product_sales as s on d.product_id = s.prod_id
-group by d.category_name
-order by category_revenue desc
+-- 5. Choice-Based Question: 3rd and 4th highest-selling product categories
+WITH RankedCategories AS (
+    SELECT 
+        category_name,
+        SUM(price * qty) AS total_sales,
+        DENSE_RANK() OVER (ORDER BY SUM(price * qty) DESC) AS sales_rank
+    FROM product_sales
+    GROUP BY category_name
+)
+SELECT 
+    sales_rank,
+    category_name,
+    ROUND(total_sales, 2) AS total_sales
+FROM RankedCategories
+WHERE sales_rank IN (3, 4);
+
