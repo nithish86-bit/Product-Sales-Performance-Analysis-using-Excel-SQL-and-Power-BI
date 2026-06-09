@@ -6,10 +6,10 @@ An end-to-end retail data analytics case study executing data manipulation in Ex
 ---
 
 ## 🎖 Certification & Credentials
-* **Credential:** Certified Data Analyst (Excel, SQL & Power BI) [INDEX]
-* **Issuing Organization:** AnalytixLabs [INDEX]
-* **Issue Date:** June 8, 2026 [INDEX]
-* **Certificate ID:** ALB-DVA-8062026-5050 [INDEX]
+* **Credential:** Certified Data Analyst (Excel, SQL & Power BI)
+* **Issuing Organization:** [AnalytixLabs](https://analytixlabs.co.in)
+* **Issue Date:** June 8, 2026
+* **Certificate ID & Verification:** [LMS-4PL36Y3N1MQ50KT30](https://analytixlabs.co.in)
 
 ---
 
@@ -76,3 +76,4 @@ The underlying transactional dataset captures operational parameters including:
 ## 📬 Author & Contacts
 * **Nithish Ramesh**
 * **LinkedIn:** [linkedin.com/in/nithish-rbn](https://www.linkedin.com/in/nithish-rbn)
+
