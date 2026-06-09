@@ -9,7 +9,7 @@ An end-to-end retail data analytics case study executing data manipulation in Ex
 * **Credential:** Certified Data Analyst (Excel, SQL & Power BI)
 * **Issuing Organization:** [AnalytixLabs](https://analytixlabs.co.in)
 * **Issue Date:** June 8, 2026
-* **Certificate ID & Verification:** [LMS-4PL36Y3N1MQ50KT30](https://analytixlabs.co.in)
+* **Certificate ID & Verification:** [LMS-4PL36Y3N1MQ50KT30](data%20analyst%20certificate.pdf)
 
 ---
 
@@ -17,6 +17,7 @@ An end-to-end retail data analytics case study executing data manipulation in Ex
 * 📊 **Excel Analytics Workbook:** `nithish_ramesh_casestudy.xlsx`
 * 🗄️ **SQL Analytical Queries:** `nithish_ramesh.sql`
 * 📉 **Power BI Interactive Dashboard:** `nithish_ramesh.pbix`
+* 📄 **Official Credential Document:** `data analyst certificate.pdf`
 
 ---
 
@@ -75,5 +76,4 @@ The underlying transactional dataset captures operational parameters including:
 ---
 ## 📬 Author & Contacts
 * **Nithish Ramesh**
-* **LinkedIn:** [linkedin.com/in/nithish-rbn](https://www.linkedin.com/in/nithish-rbn)
-
+* **LinkedIn:** [://linkedin.com](https://www.://linkedin.com)
