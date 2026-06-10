@@ -37,7 +37,7 @@ The underlying transactional dataset captures operational parameters including:
 
 ---
 
-## 🚀 Key Solutions & Metrics Completed
+## 🛠️ Key Solutions & Metrics Completed
 
 ### 1. Spreadsheet Engineering (MS Excel)
 * **Missing Data Imputation:** Utilized `XLOOKUP` mechanics to fix structural dataset holes across tables.
@@ -53,6 +53,71 @@ The underlying transactional dataset captures operational parameters including:
 ### 3. Interactive Business Intelligence (Power BI)
 * Engineered a dynamic reporting engine visualizing Total Transactions, Applied Discounts, and Categorical Sales Proportions.
 * Implemented cross-filtering slicers allowing real-time deep-dives by product type and discount bracket.
+
+---
+
+## 💻 Core SQL Implementations
+
+<details>
+<summary><b>🔍 View Query 1: Isolating 3rd & 4th Highest-Selling Categories (CTEs & Window Functions)</b></summary>
+
+```sql
+WITH RankedCategories AS (
+    SELECT 
+        category_name,
+        SUM(price * qty) AS total_sales,
+        DENSE_RANK() OVER (ORDER BY SUM(price * qty) DESC) AS sales_rank
+    FROM product_sales
+    GROUP BY category_name
+)
+SELECT 
+    sales_rank,
+    category_name,
+    ROUND(total_sales, 2) AS total_sales
+FROM RankedCategories
+WHERE sales_rank IN (3, 4);
+```
+</details>
+
+<details>
+<summary><b>📈 View Query 2: Product Highest Discount Percentage Calculation</b></summary>
+
+```sql
+SELECT 
+    product_name,
+    original_price,
+    discounted_price,
+    ROUND(((original_price - discounted_price) / original_price) * 100, 2) AS discount_percentage
+FROM product_pricing
+WHERE original_price > 0
+ORDER BY discount_percentage DESC
+LIMIT 1;
+```
+</details>
+
+<details>
+<summary><b>💰 View Query 3: Total Revenue & Price Fluctuation Metrics</b></summary>
+
+```sql
+-- Total revenue for each product category
+SELECT 
+    category_name,
+    ROUND(SUM(price * qty), 2) AS total_revenue
+FROM product_sales
+GROUP BY category_name
+ORDER BY total_revenue DESC;
+
+-- Product with the lowest price fluctuation
+SELECT 
+    product_name,
+    original_price,
+    discounted_price,
+    ABS(original_price - discounted_price) AS price_fluctuation
+FROM product_pricing
+ORDER BY price_fluctuation ASC
+LIMIT 1;
+```
+</details>
 
 ---
 
@@ -76,4 +141,4 @@ The underlying transactional dataset captures operational parameters including:
 ---
 ## 📬 Author & Contacts
 * **Nithish Ramesh**
-* **LinkedIn Profile Link:** https://www.linkedin.com/in/nithish-rbn
+* **LinkedIn Profile:** [linkedin.com/in/nithish-rbn](https://www.linkedin.com/in/nithish-rbn)
